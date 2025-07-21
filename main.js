@@ -3,23 +3,32 @@ import { increment, reset } from "./counter.js";
 const button1 = document.querySelector("#increment_b");
 const button2 = document.querySelector("#reset_b");
 const buttonform = document.querySelector("#submit");
+const number = document.querySelector("#display");
+const text = document.querySelector("#txt");
+const invalid = document.querySelector("#invalid");
 
 button1.addEventListener("click", () => {
-  document.querySelector("#display").innerText = increment();
+  number.innerText = increment();
 });
 
 button2.addEventListener("click", () => {
-  document.querySelector("#display").innerText = reset();
+  number.innerText = reset();
 });
 
 buttonform.addEventListener("click", () => {
-  let lenchar = document.querySelector("#txt").value.length;
-  if (lenchar < 3) {
-    document.querySelector("#invalid").style.color = "red";
-    document.querySelector("#invalid").innerText = "Invalid input";
-    throw new Error("Invalid input");
-  } else {
-    document.querySelector("#txt").value = "";
-    document.querySelector("#invalid").innerText = "";
+  try {
+    let lenchar = text.value.length;
+
+    if (lenchar < 3) {
+      invalid.style.color = "red";
+      invalid.innerText = "Invalid input";
+      throw new Error("Invalid input");
+    }
+
+    text.value = "";
+    invalid.innerText = "";
+    
+  } catch (err) {
+    console.log(err.message);
   }
 });
